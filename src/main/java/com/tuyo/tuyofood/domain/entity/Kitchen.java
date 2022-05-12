@@ -1,16 +1,15 @@
 package com.tuyo.tuyofood.domain.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Kitchen {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nom_cozinha")
+    /*@Column(name = "nom_cozinha", length = 30) => especificando o tamanho de caracteres*/
     private String nome;
 
     public Long getId() {
