@@ -1,2 +1,2 @@
-insert into cozinha (nome) values ('Tailandesa');
-insert into cozinha (nome) values ('Indiana');
+insert into kitchen (nome) values ('Tailandesa');
+insert into kitchen (nome) values ('Indiana');
