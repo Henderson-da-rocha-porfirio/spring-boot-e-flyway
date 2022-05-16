@@ -26,6 +26,11 @@ public class KitchenRegister {
                 .getResultList();
     }
 
+    /* Método para buscar por ID: Só é passar no parâmetro () o tipo de entidade: Kitchen.class e o id.*/
+    public Kitchen buscar(Long id) {
+        return manager.find(Kitchen.class, id);
+    }
+
     /* A anotação @Transactional = representa a transação que precisa ser feita no database.
     *  1. Inserção direta no database sem JPA: insert into kitchen (nome) values (kitchen = tabela e (nome)= seriam as colunas)
     *  2. Com JPA: return manager.merge(entity) = colocando a entity, kitchen, no contexto de persistência.
