@@ -1,1 +1,1 @@
-# Criando e Implementando o Repository
+# Usando Lombok para evitar Boilerplates (muito código)

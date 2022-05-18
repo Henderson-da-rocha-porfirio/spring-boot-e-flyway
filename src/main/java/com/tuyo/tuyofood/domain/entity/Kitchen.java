@@ -1,45 +1,30 @@
 package com.tuyo.tuyofood.domain.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+/* @Getter, @Setter e @EqualsAndHashCode = anotações para Lombok, ou seja, métodos get e set são gerados automaticamente */
+/*@Getter
+@Setter
+@EqualsAndHashCode*/
+/* Usando o Data, inclui todos os anteriores: @Getter, @Setter e @EqualsAndHashCode e ainda o toString */
+/* Mesmo com o Data sendo usado, o EqualsAndHashCode será usado apenas se incluso explicitamente:
+*  1. @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+*  2. @EqualsAndHashCode.Include: cria um EqualsAndHashCode apenas se eu estiver usando o ID como referência para fazer o hashcode */
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Kitchen {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*@Column(name = "nom_cozinha", length = 30) => especificando o tamanho de caracteres*/
     private String nome;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Kitchen)) return false;
-
-        Kitchen kitchen = (Kitchen) o;
-
-        return getId().equals(kitchen.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
 }
