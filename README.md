@@ -1,1 +1,1 @@
-# Usando Lombok para evitar Boilerplates (muito código)
+# @ManyToOne
