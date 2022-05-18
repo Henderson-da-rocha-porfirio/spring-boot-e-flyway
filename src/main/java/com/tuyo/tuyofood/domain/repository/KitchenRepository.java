@@ -10,6 +10,10 @@ import java.util.List;
 *  c. Não informa nada sobre o mecanismo de persistência dos dados
 *  d. Por isso é colocada dentro de Domain
 *  e. É preciso criar uma classe para implementar esta classe.
+*  f. Por padrão, ele deve imitar uma Coleção: add, get e etc...
+*  g. Não se cria um repositório por tabela e/ou por entidade.
+*  h. Um repository é por agregado (conjunto de agregado/aggregate)
+*  i. Não criar repositórios para entidades que não são "aggregate root".
 *  2. Pensando na Camada de Negócio de um Delivery de Comida: o que um repositório de cozinha tem que ter:
 *  a. Listar Cozinhas
 *  b. Buscar Cozinhas pelo ID
