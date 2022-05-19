@@ -9,6 +9,6 @@ public interface PermissionRepository {
 
     List<Permission> listar();
     Permission buscar(Long id);
-    Permission salvar(Permission estado);
-    void remover(Permission estado);
+    Permission salvar(Permission permission);
+    void remover(Permission permission);
 }

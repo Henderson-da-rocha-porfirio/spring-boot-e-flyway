@@ -9,6 +9,6 @@ public interface PaymentFormRepository {
 
     List<PaymentForm> listar();
     PaymentForm buscar(Long id);
-    PaymentForm salvar(PaymentForm estado);
-    void remover(PaymentForm estado);
+    PaymentForm salvar(PaymentForm paymentForm);
+    void remover(PaymentForm paymentForm);
 }
