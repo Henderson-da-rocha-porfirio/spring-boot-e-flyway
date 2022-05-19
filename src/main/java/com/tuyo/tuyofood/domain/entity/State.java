@@ -4,13 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
-/* Mudando o nome da coluna: @JoinColumn(name =  "kitchen_legacy") */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Restaurant {
+public class State {
 
     @EqualsAndHashCode.Include
     @Id
@@ -19,12 +17,5 @@ public class Restaurant {
 
     @Column(nullable = false)
     private String nome;
-
-    @Column(name = "taxa_frete", nullable = false)
-    private BigDecimal taxaFrete;
-
-    @ManyToOne
-    @JoinColumn(name =  "kitchen_id", nullable = false)
-    private Kitchen kitchen;
 
 }
