@@ -1,1 +1,1 @@
-# @ManyToOne
+# @JoinColumn

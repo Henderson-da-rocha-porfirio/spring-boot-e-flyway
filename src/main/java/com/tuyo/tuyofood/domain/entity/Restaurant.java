@@ -6,9 +6,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-/* Criando o Relacionamento:
-*  1. Colocar o Tipo da propriedade: Tipo Kitchen
-*  2. ManyToOne: Muitos para Um, ou seja, muitos restaurantes possuem uma cozinha */
+/* Mudando o nome da coluna: @JoinColumn(name =  "kitchen_legacy") */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -25,6 +23,7 @@ public class Restaurant {
     private BigDecimal taxaFrete;
 
     @ManyToOne
+    /*@JoinColumn(name =  "kitchen_legacy")*/
     private Kitchen kitchen;
 
 }
