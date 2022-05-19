@@ -1,1 +1,1 @@
-# @JoinColumn
+# Nullable
