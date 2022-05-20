@@ -1,37 +1,138 @@
-# Data-Driven Development
-## *** Domain-Driven Design ou Projeto Orientado a Domínio é um padrão de modelagem de software orientado a objetos que procura reforçar conceitos e boas práticas relacionadas à OO.
+# REST - Representation State Transfer
+## - Entendendo antes o que é uma API
+## *** API (Application Programming Interface)
+````
+1. É um software que possui um conjunto de funções que intermediam o acesso as funcionalidades de algum sistema operacional, aplicação ou um serviço.
+2. De maneira simples, é uma interface para acessar funcionalidades de um outro sistema.
+````
+## *** API: PROVEDOR
+````
+Expor uma função ou uma funcionalidade
+````
 
-## *** Isso vem em contrapartida com o uso comum do Data-Driven Design ou Projeto Orientado a Dados, que a maioria dos desenvolvedores usa sem mesmo ter consciência disso.
+## *** API: CONSUMIDOR
+````
+Consome as funções ou as funcionalidades
+````
 
-### 1. Já ouvi várias vezes que os dados são a coisa mais importante em uma empresa, logo a modelagem deve sempre começar pensando no banco de dados.
+|   CODIGO   | API | SOFTWARE |
+|   :---:     |   :---:     | :---:  |
+| meu_codigo  | API Collections do Java |Implementação do Collections |
+| :---:  | :---: |:---: |
 
-### 2. Não é nada incomum desenvolvedores .Net, Java e C++ começarem um sistema estabelecendo os tipos que eles vão usar e o relacionamento entre eles. Esses tipos geralmente são objetos "burros", com getters e setters, representando nada mais, nada menos, que uma tabela do banco de dados.
+## *** WEB SERVICES (ou WEB API's)
+````
+São API's WEB. Contudo, nem toda API é WEB.
+````
+|   CODIGO   | API | SOFTWARE WEB|
+|   :---:     |   :---:     | :---:  |
+| Disponibilizar Vagas  | API do GlassDoor |GlassDoor |
+| :---:  | :---: |:---: |
 
-### 3. O problema com essa abordagem é que ela não faz bom uso dos recursos da Orientação a Objetos. Muitos acham que getters e setters são o auge do encapsulamento, mas na prática esses métodos permitem ao usuário recuperar e alterar todos os atributos. Não há ganho algum, a não ser muito código desnecessário.
+## *** WEB SERVICES PODEM SER CONSUMIDOS DE VÁRIOS PROVEDORES
+````
+Aplicação de Agências de Viagens -> Consumindo:
+API da CVC
+API da Delta
+API da Gol
+````
+## *** MAS O QUE É REST AFINAL?
+### 1. É um modelo arquitetural
+### 2. É uma especificação que define a forma de comunicação entre componentes de software na web independente da linguagem de programação usada.
+### 3. É um estilo arquitetural de desenvolvimento de web services.
+### 4. É uma API que segue as melhores práticas de Roy Fielding.
 
-### 4. Enfim, muita gente acha que está usando OO, mas as classes poderiam ser facilmente substituídas por registros ou estruturas, de acordo com a linguagem utilizada.
+|   SISTEMA A (CLIENT) |     AÇÃO                  | SISTEMA B (SERVER)  |
+|   :---:              |     :---:                 |  :---:              |
+| CONSUMIDOR           |     REQUISIÇÃO ->         | PROVEDOR  (REST API)|
+|   :---:              |     <- RESPOSTA           |  :---:              |
 
-### 5. A ideia inicial do DDD é voltar à uma modelagem OO mais pura, por assim dizer. Devemos esquecer de como os dados são persistidos e nos preocupar em como representar melhor as necessidades de negócio em classes e comportamentos (métodos).
+## *** Vantagens de usar Rest API?
+### 1. Separação entre Client e Server
+### 2. Melhora a escalabilidade
+````
+Consiste no quão bem um software (e a equipe responsável por ele) conseguem se adaptar para entregar um produto de igual qualidade a um número maior ou menor de clientes, ou em cenários inesperados.
+````
+### 3. Pode-se utilizar várias linguagens de programação.
+### 4. Demanda do mercado. Ou seja, várias empresas fazem uso das API's umas das outras.
+### 5. Vários serviços fazem uso de API's cada vez mais em seus sistemas e equipamentos.
 
-### 6. Isso significa que em DDD um Cliente pode não ter um setter para os seus atributos comuns, mas pode ter métodos com lógica de negócio que neste domínio de negócio pertencem ao cliente, como void associarNovoCartao(Cartao) ou Conta recuperarInformacoesConta().
+## *** CONSTRAINTS - As melhores práticas em REST
+### 1. O REST formaliza um conjunto de Constraints:
+#### A. Client <-> Server:
+##### i. Tem que evoluir separadamente sem qualquer dependência entre eles.
+#### B. Stateless:
+##### i. Requisição feita ao servidor deve conter tudo que seja necessário para que tudo seja devidamente processado.
+##### ii. O servidor não mantém a sessão. Ou seja, o histórico de uso não permanece.
+#### C. Cache:
+##### i. Melhora a escalabilidade e performance da aplicação por reduzir o número de acessos(hits) no Server.
+##### ii. Usar apenas quando necessário
+#### D. Interface Uniforme:
+##### i. Conjunto de operações bem definidas do sistema
+##### ii. Identificação do que o sistema contém através de URI's
+##### iii. Uso do protocolo HTTP
+##### iv. Uso dos verbos do protocolo HTTP: GET, POST, PUT e DELETE
+#### E. Sistema em Camadas:
+##### i. Amplia a possibilidade de uso de outros servidores que ficam entre o Client <-> Server
+##### ii. Dessa forma, estes servidores oferecem camadas de segurança, cache e etc.
+##### iii. E isso não deve interferir entre a requisição(client) e a resposta(server).
+#### F. Códigos sob Demanda:
+##### i. Ela é opcional.
+##### ii. O Server pode enviar como resposta de uma requisição algum código que deve ser executado no Client.
+##### iii. Por exemplo, um Server pode retornar um Javascript para o Client que é responsável por montar um gráfico.
 
-### 7. Em resumo, as classes modeladas e os seus métodos deveriam representar o negócio da empresa, usando inclusive a mesma nomenclatura. A persistência dos dados é colocada em segundo plano, sendo apenas uma camada complementar.
+## *** REST VERSUS RESTful API
+### 1. REST: É o estilo arquitetural que possui as Constraints. Isto é, a especificação.
+### 2. RESTful API: É uma API desenvolvida em conformidade 100% com as Constraints.
 
-## *** Quando não usar DDD
-### 1. Às vezes só é necessário um CRUD. DDD não é uma solução para tudo. A maioria dos sistemas possui uma boa parte composta por cadastros básicos (CRUD) e não seria adequado usar DDD para isso.
+## *** PROTOCOLO HTTP
+### - COMPOSIÇÃO DA REQUISIÇÃO
+````
+ [MÉTODO][URI] HTTP/[VERSÃO]    ->         POST /produtos HTTP/1.1 
+ 
+ [CABEÇALHOS]                   ->           Content-Type: application/json
+										Accept: application/json|
+										
+										{ 
+											"nome": "Notebook i5",\
+ [CORPO/PAYLOAD]		        ->			"preco": 2100.0
+										}
+ 						
+````
 
-### 2. O DDD deve ajudar na modelagem das classes mais importantes e mais centrais do sistema de forma e diminuir a complexidade e ajudar na manutenção das mesmas, afinal este é o objetivo dos princípios de orientação a objetos.
+### - COMPOSIÇÃO DA RESPOSTA
+````
+ [HTTP/[VERSÃO] [STATUS]   ->         HTTP/1.1 201 Created
+ 
+ [CABEÇALHOS]              ->         Content-Type: application/json
+																				
+										{ 
+											"codigo": 322,
+											"nome": "Notebook i5",\
+ [CORPO]		           ->			    "preco": 2100.0
+										}
+ 						
+````
 
-## *** Compartilhando dados com outros sistemas
-### 1. Rotinas de integração que recebem ou disponibilizam dados para outros sistemas não devem ser "inteligentes".
+## ***  REST  RESOURCES
+### 1. Singleton Resource: Coleção de Produtos é Um Recurso
+### 2. Identificando Recursos: URI ( Uniform Resource Identifier ): dá endereço aos recursos
+### 3. URI vs URL:
+````
+URL ( Uniform Resource Locale ) = é um tipo de URI. Identifica o Identificador e também a Localização do recurso
 
-### 2. Muitos desenvolvedores acabam modelando suas classes de negócios tentando resolver as questões internas do sistema e, ao mesmo tempo, pensando em como essas classes serão expostas para outros sistemas.
+````
+### 4. A URI deve se referenciar a um substantivo ou alguma coisa e não a um verbo. Porque coisas possuem propriedades e verbos não possuem.
+#### Errado:
+````
+/listarProdutos
+````
+#### Certo:
+````
+/produtos
+````
 
-### 3. Padrões como DTO (Data Transfer Object) que usam objetos "burros" são mais adequados para isso.
-
-## *** Considerações finais
-### 1. O DDD não tenta resolver todos os problemas de todas as camadas de um sistema.
-
-### 2. Seu foco é na modelagem das entidades principais de negócio usando a linguagem adequada daquele domínio para facilitar a manutenção, extensão e entendimento.
-
-### 3. Particularmente, eu não seguiria à risca o padrão, até porque existem inúmeros padrões e variações de modelagem OO. Estude os princípios por detrás desses padrões, pois eles são geralmente parecidos e veja o que funciona melhor para cada projeto.
+### 5. É importante usar no plural: /produtos{codigo}
+````
+/produtos/223
+````
