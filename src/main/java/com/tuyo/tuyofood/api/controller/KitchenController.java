@@ -3,6 +3,7 @@ package com.tuyo.tuyofood.api.controller;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.List;
 // @Controller
 // @ResponseBody
 @RestController
-@RequestMapping("/kitchens")
+@RequestMapping(value = "/kitchens", produces = MediaType.APPLICATION_JSON_VALUE)
 public class KitchenController {
 
     /* 1. Variável de instância kitchenRepository
@@ -32,8 +33,14 @@ public class KitchenController {
 
     /* 1. Método retorna uma lista de cozinha
     *  2. @GetMapping: mapear o método
-    *  3. @GetMapping: É o mapeamento das requisições com verbo http get que chegarão neste método */
-    @GetMapping
+    *  3. @GetMapping: É o mapeamento das requisições com verbo http get que chegarão neste método
+    *  4. produces: representa o tipo específico de conteúdo:
+    *  a. Métodos específicos:
+    *  Com String: @GetMapping (produces = "application/json") ou uma constante: @GetMapping (produces = MediaType.APPLICATION_JSON_VALUE)
+    *  Para dois tipos: @GetMapping (produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    *  b. Escopo da classe inteira: passar no parâmetro do @RequestMapping ali em cima. */
+
+    // @GetMapping (produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     public List<Kitchen> listar() {
         return kitchenRepository.listar();
     }
