@@ -23,7 +23,7 @@ import java.util.List;
 // @Controller
 // @ResponseBody
 @RestController
-@RequestMapping(value = "/kitchens", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/kitchens") // , produces = MediaType.APPLICATION_JSON_VALUE)
 public class KitchenController {
 
     /* 1. Variável de instância kitchenRepository
@@ -40,8 +40,22 @@ public class KitchenController {
     *  Para dois tipos: @GetMapping (produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     *  b. Escopo da classe inteira: passar no parâmetro do @RequestMapping ali em cima. */
 
-    // @GetMapping (produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    @GetMapping //(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     public List<Kitchen> listar() {
         return kitchenRepository.listar();
     }
+
+ /*   Recebendo recursos com métodos diferentes:
+
+ @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Kitchen> listar1() {
+        System.out.println("LISTAR 1");
+        return kitchenRepository.listar();
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public List<Kitchen> listar2() {
+        System.out.println("LISTAR 2");
+        return kitchenRepository.listar();
+    }*/
 }
