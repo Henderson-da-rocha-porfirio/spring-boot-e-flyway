@@ -20,6 +20,9 @@ import java.util.List;
  * afetam tanto a serialização JSON como também XML.
  * 4. Esta classe vai empacotar uma lista de kitchens.
  * 5. Data gera os Getters e Setters e também os construtores para propriedades obrigatórias.
+ * 6. Para dizer que uma propriedade é obrigatória, anotamos com @NonNull,
+ * que gera um construtor que recebe Kitchen e atribui a variável de instância kitchens.
+ * E sem o @NonNull, ele não geraria o construtor kitchens.
  */
 
 @JsonRootName("kitchens")
