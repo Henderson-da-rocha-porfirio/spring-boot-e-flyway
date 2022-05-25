@@ -1,8 +1,10 @@
 package com.tuyo.tuyofood.api.controller;
 
+import com.tuyo.tuyofood.api.model.KitchensXmlWrapper;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,17 +22,11 @@ public class KitchenController {
         return kitchenRepository.listar();
     }
 
-    /* * Buscando Uma (singleton) Cozinha específica
-       * @PathVariable = passagem da variável onde queremos realizar o Bind (ligação).Tipo: /kitchens/{kitchenId}
-       *
-       * Método comum para a realização do Bind:
+    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public KitchensXmlWrapper listarXml() {
+        return new KitchensXmlWrapper(kitchenRepository.listar());
+    }
 
-    @GetMapping("/{kitchenId}")
-    public Kitchen buscar(@PathVariable("kitchenId") Long id) {
-        return kitchenRepository.buscar(id);
-    }*/
-
-    /* Com Bind Automático */
     @GetMapping("/{kitchenId}")
     public Kitchen buscar(@PathVariable("kitchenId") Long kitchenId) {
         return kitchenRepository.buscar(kitchenId);

@@ -28,9 +28,9 @@ import java.util.List;
 @JsonRootName("kitchens")
 //@JacksonXmlRootElement(localName = "kitchens")
 @Data
-public class KitchensRepresentationModel {
+public class KitchensXmlWrapper {
 
-    @JsonProperty("kitchens")
+    @JsonProperty("kitchen")
 //	@JacksonXmlProperty(localName = "kitchens")
     @JacksonXmlElementWrapper(useWrapping = false)
     @NonNull
