@@ -4,6 +4,7 @@ import com.tuyo.tuyofood.api.model.KitchensXmlWrapper;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class KitchenController {
         return new KitchensXmlWrapper(kitchenRepository.listar());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/{kitchenId}")
     public Kitchen buscar(@PathVariable("kitchenId") Long kitchenId) {
         return kitchenRepository.buscar(kitchenId);
