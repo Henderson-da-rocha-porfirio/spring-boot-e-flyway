@@ -6,6 +6,7 @@ import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +29,15 @@ public class KitchenController {
         return new KitchensXmlWrapper(kitchenRepository.listar());
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/{kitchenId}")
-    public Kitchen buscar(@PathVariable("kitchenId") Long kitchenId) {
-        return kitchenRepository.buscar(kitchenId);
+    public ResponseEntity<Kitchen> buscar(@PathVariable Long kitchenId) {
+        Kitchen kitchen = kitchenRepository.buscar(kitchenId);
+
+        if (kitchen != null) {
+            return ResponseEntity.ok(kitchen);
+        }
+
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.notFound().build();
     }
 }
