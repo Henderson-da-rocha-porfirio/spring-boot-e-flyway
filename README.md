@@ -1,9 +1,9 @@
-# Recursos Com POST
+# Recursos Com PUT
 ````
-Post não é idempotente
+Put é idempotente
 ````
 ### Testando no Postman
-#### Escolher o método: POST -> Body -> raw:
+#### Escolher o método: PUT -> Body -> raw:
 ````
   {
         "nome": "Italiana"
