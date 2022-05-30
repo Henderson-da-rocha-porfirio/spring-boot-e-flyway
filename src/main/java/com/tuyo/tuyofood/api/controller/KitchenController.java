@@ -5,6 +5,7 @@ import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -68,5 +69,22 @@ public class KitchenController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{kitchenId}")
+    public ResponseEntity<Kitchen> remover(@PathVariable Long kitchenId) {
+        try {
+            Kitchen kitchen = kitchenRepository.buscar(kitchenId);
+
+            if (kitchen != null) {
+                kitchenRepository.remover(kitchen);
+
+                return ResponseEntity.noContent().build();
+            }
+
+            return ResponseEntity.notFound().build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 }

@@ -1,6 +1,6 @@
-# Recursos Com PUT
+# Recursos Com DELETE
 ````
-Put é idempotente
+DELETE é idempotente
 ````
 ### Testando no Postman
 #### Escolher o método: PUT -> Body -> raw:
