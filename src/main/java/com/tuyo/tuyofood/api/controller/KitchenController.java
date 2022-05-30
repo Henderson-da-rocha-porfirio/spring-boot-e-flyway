@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/* 1. @PostMapping: Mapeamento do método POST
+*  2. @RequestBody: Vinculação do corpo da requisição com o objeto em questão "Kitchen" (instanciar e fazer o Bind)
+*  3. @ResponseStatus: customizando o status */
+
 @RestController
 @RequestMapping(value = "/kitchens")
 public class KitchenController {
@@ -18,7 +22,7 @@ public class KitchenController {
     @Autowired
     private KitchenRepository kitchenRepository;
 
-    /* Listando Coleções de Cozinha */
+    /* Listando Coleções de Kitchen */
     @GetMapping
     public List<Kitchen> listar() {
         return kitchenRepository.listar();
@@ -39,5 +43,11 @@ public class KitchenController {
 
 //		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Kitchen adicionar(@RequestBody Kitchen kitchen) {
+        return kitchenRepository.salvar(kitchen);
     }
 }
