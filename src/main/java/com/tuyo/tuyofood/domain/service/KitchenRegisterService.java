@@ -5,6 +5,8 @@ import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/* @Service = Também é um @Component */
+
 @Service
 public class KitchenRegisterService {
 

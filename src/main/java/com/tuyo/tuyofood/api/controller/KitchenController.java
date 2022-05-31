@@ -3,6 +3,7 @@ package com.tuyo.tuyofood.api.controller;
 import com.tuyo.tuyofood.api.model.KitchensXmlWrapper;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
+import com.tuyo.tuyofood.domain.service.KitchenRegisterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,6 +26,9 @@ public class KitchenController {
 
     @Autowired
     private KitchenRepository kitchenRepository;
+
+    @Autowired
+    private KitchenRegisterService kitchenRegisterService;
 
     /* Listando Coleções de Kitchen */
     @GetMapping
@@ -52,7 +56,7 @@ public class KitchenController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Kitchen adicionar(@RequestBody Kitchen kitchen) {
-        return kitchenRepository.salvar(kitchen);
+        return kitchenRegisterService.salvar(kitchen);
     }
 
     @PutMapping("/{kitchenId}")
