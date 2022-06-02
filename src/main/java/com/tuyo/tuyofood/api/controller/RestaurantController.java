@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/* <?> = WILDCARD: é um coringa. Alí, no caso, aceita um ResponseEntity com
+* qualquer tipo de corpo. Podendo ser uma String, um Restaurant ou qualquer outro tipo ou coisa. */
+
 @RestController
 @RequestMapping(value = "/restaurants")
 public class RestaurantController {
