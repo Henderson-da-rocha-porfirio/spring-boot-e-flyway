@@ -25,5 +25,5 @@ public interface KitchenRepository {
     List<Kitchen> listar();
     Kitchen buscar(Long id);
     Kitchen salvar(Kitchen kitchen);
-    void remover(Kitchen kitchen);
+    void remover(Long id);
 }

@@ -7,7 +7,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-/* @Service = Também é um @Component */
+/* 1. @Service = Também é um @Component
+*  2. Uma classe de Serviço não deve retornar um ResponseEntity porque essa classe de serviço é negócio.
+* Ele deve ficar na classe controladora KitchenController.
+*  3. E o tratamento de exceções deve ser feito aqui e não mais em KitchenController.
+*  4. Esta classe não pode ter acesso aquelas classes que estão implementando a API.
+*  5. Sendo uma Classe de Serviço, ela não tem nenhum conhecimento nenhum de protocolo HTTP. */
 
 @Service
 public class KitchenRegisterService {
