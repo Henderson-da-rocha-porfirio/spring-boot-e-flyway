@@ -10,18 +10,18 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 /* 1. @Service = Também é um @Component
-*  2. Uma classe de Serviço não deve retornar um ResponseEntity porque essa classe de serviço é negócio.
-* Ele deve ficar na classe controladora KitchenController.
-*  3. E o tratamento de exceções deve ser feito aqui e não mais em KitchenController.
-*  4. Esta classe não pode ter acesso aquelas classes que estão implementando a API.
-*  5. Sendo uma Classe de Serviço, ela não tem nenhum conhecimento nenhum de protocolo HTTP.
-*  6. DataIntegrityViolationException: essa exceção é lançada quando uma kitchen está em uso por um Restaurant.
-* Ou seja, no cadastro de restaurantes tem um restaurant cadastrado para uma determinada kitchen. E estou
-* tentando excluir esta determinada kitchen mas não pode porque tem restaurants nessa determinada kitchen. E
-* por isso não posso excluir e lança essa exceção.
-*  7. EntidadeEmUsoException: é uma exceção de negócio.
-*  8. String.format: passar String em forma de código "%d"
-*  9. %d = integer (incl. byte, short, int, long, bigint)	Decimal Integer. */
+ *  2. Uma classe de Serviço não deve retornar um ResponseEntity porque essa classe de serviço é negócio.
+ * Ele deve ficar na classe controladora KitchenController.
+ *  3. E o tratamento de exceções deve ser feito aqui e não mais em KitchenController.
+ *  4. Esta classe não pode ter acesso aquelas classes que estão implementando a API.
+ *  5. Sendo uma Classe de Serviço, ela não tem nenhum conhecimento nenhum de protocolo HTTP.
+ *  6. DataIntegrityViolationException: essa exceção é lançada quando uma kitchen está em uso por um Restaurant.
+ * Ou seja, no cadastro de restaurantes tem um restaurant cadastrado para uma determinada kitchen. E estou
+ * tentando excluir esta determinada kitchen mas não pode porque tem restaurants nessa determinada kitchen. E
+ * por isso não posso excluir e lança essa exceção.
+ *  7. EntidadeEmUsoException: é uma exceção de negócio.
+ *  8. String.format: passar String em forma de código "%d"
+ *  9. %d = integer (incl. byte, short, int, long, bigint)	Decimal Integer. */
 
 @Service
 public class KitchenRegisterService {

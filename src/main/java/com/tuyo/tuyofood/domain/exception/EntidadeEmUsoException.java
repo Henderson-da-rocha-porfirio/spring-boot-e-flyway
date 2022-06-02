@@ -13,4 +13,3 @@ public class EntidadeEmUsoException extends RuntimeException {
     }
 
 }
-6

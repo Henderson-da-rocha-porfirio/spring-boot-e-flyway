@@ -2,11 +2,12 @@ package com.tuyo.tuyofood.api.controller;
 
 import com.tuyo.tuyofood.api.model.KitchensXmlWrapper;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
+import com.tuyo.tuyofood.domain.exception.EntidadeEmUsoException;
+import com.tuyo.tuyofood.domain.exception.EntidadeNaoEncontradaException;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import com.tuyo.tuyofood.domain.service.KitchenRegisterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ import java.util.List;
  *  3. @ResponseStatus: customizando o status
  *  4. @PathVariable: Faz o Bind
  *  5. BeanUtils.copyProperties: faz com que os valores das propriedades de Kitchen sejam passados para KitchenAtual. Isso economiza código sem precisar jogar get ou set
- *  6. KitchenController = é a controladora onde está sendo implementada a API */
+ *  6. KitchenController = é a controladora onde está sendo implementada a API
+ *  7. KitchenController: agora o controlador tem acesso ao ResponseEntity e traduz EntidadeEmUsoException para um "CONFLICT"(409) HTTP. */
 
 @RestController
 @RequestMapping(value = "/kitchens")
@@ -66,7 +68,6 @@ public class KitchenController {
         Kitchen kitchenAtual = kitchenRepository.buscar(kitchenId);
 
         if (kitchenAtual != null) {
-//			kitchenAtual.setNome(kitchen.getNome());
             BeanUtils.copyProperties(kitchen, kitchenAtual, "id");
 
             kitchenAtual = kitchenRepository.salvar(kitchenAtual);
@@ -79,16 +80,13 @@ public class KitchenController {
     @DeleteMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> remover(@PathVariable Long kitchenId) {
         try {
-            Kitchen kitchen = kitchenRepository.buscar(kitchenId);
+            kitchenRegisterService.excluir(kitchenId);
+            return ResponseEntity.noContent().build();
 
-            if (kitchen != null) {
-                kitchenRepository.remover(kitchen);
-
-                return ResponseEntity.noContent().build();
-            }
-
+        } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
-        } catch (DataIntegrityViolationException e) {
+
+        } catch (EntidadeEmUsoException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
