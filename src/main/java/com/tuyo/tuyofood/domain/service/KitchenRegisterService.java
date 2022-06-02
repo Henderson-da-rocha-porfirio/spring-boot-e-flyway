@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 * Ou seja, no cadastro de restaurantes tem um restaurant cadastrado para uma determinada kitchen. E estou
 * tentando excluir esta determinada kitchen mas não pode porque tem restaurants nessa determinada kitchen. E
 * por isso não posso excluir e lança essa exceção.
-*  7. EntidadeEmUsoException: é uma exceção de negócio. */
+*  7. EntidadeEmUsoException: é uma exceção de negócio.
+*  8. String.format: passar String em forma de código "%d"
+*  9. %d = integer (incl. byte, short, int, long, bigint)	Decimal Integer. */
 
 @Service
 public class KitchenRegisterService {
@@ -37,11 +39,11 @@ public class KitchenRegisterService {
 
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe um cadastro de kitchen com código %d", kitchenId));
+                    String.format("There is no kitchen registration with code %d", kitchenId));
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Cozinha de código %d não pode ser removida, pois está em uso", kitchenId));
+                    String.format("Code kitchen %d cannot be removed as it is in use", kitchenId));
         }
     }
 }
