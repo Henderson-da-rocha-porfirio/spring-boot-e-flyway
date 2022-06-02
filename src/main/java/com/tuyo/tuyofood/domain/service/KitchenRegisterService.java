@@ -2,6 +2,7 @@ package com.tuyo.tuyofood.domain.service;
 
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.exception.EntidadeEmUsoException;
+import com.tuyo.tuyofood.domain.exception.EntidadeNaoEncontradaException;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
