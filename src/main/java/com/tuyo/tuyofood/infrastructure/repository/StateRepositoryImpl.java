@@ -4,6 +4,7 @@ import com.tuyo.tuyofood.domain.entity.City;
 import com.tuyo.tuyofood.domain.entity.State;
 import com.tuyo.tuyofood.domain.repository.CityRepository;
 import com.tuyo.tuyofood.domain.repository.StateRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +43,13 @@ public class StateRepositoryImpl implements StateRepository {
 
     @Transactional
     @Override
-    public void remover(State state) {
-        state = buscar(state.getId());
+    public void remover(Long id) {
+        State state = buscar(id);
+
+        if (state == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
         manager.remove(state);
     }
 }

@@ -4,6 +4,7 @@ import com.tuyo.tuyofood.domain.entity.City;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.repository.CityRepository;
 import com.tuyo.tuyofood.domain.repository.KitchenRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +43,12 @@ public class CityRepositoryImpl implements CityRepository {
 
     @Transactional
     @Override
-    public void remover(City city) {
-        city = buscar(city.getId());
+    public void remover(Long id) {
+        City city = buscar(id);
+
+        if (city == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
         manager.remove(city);
     }
 }

@@ -10,5 +10,5 @@ public interface CityRepository {
     List<City> listar();
     City buscar(Long id);
     City salvar(City city);
-    void remover(City city);
+    void remover(Long id);
 }
