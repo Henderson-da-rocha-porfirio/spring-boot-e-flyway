@@ -1,5 +1,6 @@
 package com.tuyo.tuyofood.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tuyo.tuyofood.domain.entity.Restaurant;
 import com.tuyo.tuyofood.domain.exception.EntidadeNaoEncontradaException;
 import com.tuyo.tuyofood.domain.repository.RestaurantRepository;
@@ -8,13 +9,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-/* <?> = WILDCARD: é um coringa. Alí, no caso, aceita um ResponseEntity com
-* qualquer tipo de corpo. Podendo ser uma String, um Restaurant ou qualquer outro tipo ou coisa. */
+/* ObjectMapper: converte objetos json em java e vice-versa */
 
 @RestController
 @RequestMapping(value = "/restaurants")
@@ -90,9 +92,19 @@ public class RestaurantController {
         return atualizar(restaurantId, restaurantAtual);
     }
 
-    private void merge(Map<String, Object> camposOrigem, Restaurant restaurantDestino) {
-        camposOrigem.forEach((nomePropriedade, valorPropriedade) -> {
-            System.out.println(nomePropriedade + " = " + valorPropriedade);
+    private void merge(Map<String, Object> dadosOrigem, Restaurant restaurantDestino) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Restaurant restaurantOrigem = objectMapper.convertValue(dadosOrigem, Restaurant.class);
+
+        dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
+            Field field = ReflectionUtils.findField(Restaurant.class, nomePropriedade);
+            field.setAccessible(true);
+
+            Object novoValor = ReflectionUtils.getField(field, restaurantOrigem);
+
+//			System.out.println(nomePropriedade + " = " + valorPropriedade + " = " + novoValor);
+
+            ReflectionUtils.setField(field, restaurantDestino, novoValor);
         });
     }
 }
