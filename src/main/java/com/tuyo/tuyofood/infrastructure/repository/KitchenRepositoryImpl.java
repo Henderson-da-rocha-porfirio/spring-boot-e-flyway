@@ -18,6 +18,9 @@ import java.util.List;
  de "exception" para outro tipo específico da própria Spring.
  c. JPQL: "from Kitchen where nome like :nome"
  d. setParameter: está fazendo o bind entre o parâmetro de "nome"(nome que foi passado no parâmetro de JPQL) e nome passado como parâmetro do método(Spring nome).
+ e. "nome", "%" + nome + "%": concatenação.
+ f. like: instrução significa que contém parte do nome.
+ g. %: coringa.
  */
 
 @Repository
@@ -38,6 +41,14 @@ public class KitchenRepositoryImpl implements KitchenRepository {
                 .setParameter("nome", "%" + nome + "%")
                 .getResultList();
     }
+
+   /* Método consultarPorNome sem concatenação e like:
+   @Override
+    public List<Kitchen> consultarPorNome(String nome) {
+        return manager.createQuery("from Kitchen where nome = :nome", Kitchen.class)
+                .setParameter("nome", nome)
+                .getResultList();
+    }*/
 
     @Override
     public Kitchen buscar(Long id) {
