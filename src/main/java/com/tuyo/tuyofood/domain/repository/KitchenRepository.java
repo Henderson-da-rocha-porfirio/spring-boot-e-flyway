@@ -19,11 +19,16 @@ import java.util.List;
 *  b. Buscar Cozinhas pelo ID
 *  c. Salvar uma Cozinha
 *  d. Remover uma Cozinha
-*  e. Poderia ter outros métodos específicos */
+*  e. Poderia ter outros métodos específicos
+*  f. List<Kitchen> consultarPorNome(String nome): é uma nova assinatura de método */
+
 public interface KitchenRepository {
 
     List<Kitchen> listar();
+    List<Kitchen> consultarPorNome(String nome);
     Kitchen buscar(Long id);
+
+
     Kitchen salvar(Kitchen kitchen);
     void remover(Long id);
 }
