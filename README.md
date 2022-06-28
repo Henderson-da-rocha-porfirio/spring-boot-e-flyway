@@ -1,12 +1,10 @@
 # SPRING_DATA_JPA_Repository
 
 ## URL para teste no PostMan:
-### 1. Buscando pelo nome exato:
+### Dependência:
 ````
-http://localhost:8080/teste/kitchens/por-nome?nome=Tailandesa
-````
-
-### 2. Buscando pelo nome concatenado (pode colocar qualquer junção de duas letras específicas para o que busca:
-````
-http://localhost:8080/teste/kitchens/por-nome?nome=Ta
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
 ````
