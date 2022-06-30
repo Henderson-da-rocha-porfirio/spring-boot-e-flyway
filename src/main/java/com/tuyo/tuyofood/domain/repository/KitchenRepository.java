@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface KitchenRepository extends JpaRepository<Kitchen, Long> {
 
-    List<Kitchen> findTodasByNome(String nome);
+    List<Kitchen> findTodasByNomeContaining(String nome);
 
     Optional<Kitchen> findByNome(String nome);
 

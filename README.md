@@ -44,3 +44,6 @@
 ### ii. CrudRepository
 ### iii. Repository (este não possui nenhum método)
 ### — Caso não queira herdar todos os métodos é só escolher um desses daí.
+
+## Keywords Spring DAta JPA:
+### Link: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
