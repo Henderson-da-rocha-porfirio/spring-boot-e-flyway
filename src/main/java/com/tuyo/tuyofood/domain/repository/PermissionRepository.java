@@ -1,14 +1,8 @@
 package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.Permission;
-import com.tuyo.tuyofood.domain.entity.State;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-public interface PermissionRepository {
-
-    List<Permission> listar();
-    Permission buscar(Long id);
-    Permission salvar(Permission permission);
-    void remover(Permission permission);
 }

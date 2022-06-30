@@ -1,14 +1,8 @@
 package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.PaymentForm;
-import com.tuyo.tuyofood.domain.entity.State;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface PaymentFormRepository extends JpaRepository<PaymentForm, Long> {
 
-public interface PaymentFormRepository {
-
-    List<PaymentForm> listar();
-    PaymentForm buscar(Long id);
-    PaymentForm salvar(PaymentForm paymentForm);
-    void remover(PaymentForm paymentForm);
 }

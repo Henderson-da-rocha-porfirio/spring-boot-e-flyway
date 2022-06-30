@@ -1,13 +1,8 @@
 package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.State;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface StateRepository extends JpaRepository<State, Long> {
 
-public interface StateRepository {
-
-    List<State> listar();
-    State buscar(Long id);
-    State salvar(State state);
-    void remover(Long id);
 }

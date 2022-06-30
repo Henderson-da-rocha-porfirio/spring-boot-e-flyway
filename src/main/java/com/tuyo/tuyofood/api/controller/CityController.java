@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/cities")
@@ -26,15 +27,15 @@ public class CityController {
 
     @GetMapping
     public List<City> listar() {
-        return cityRepository.listar();
+        return cityRepository.findAll();
     }
 
     @GetMapping("/{cityId}")
     public ResponseEntity<City> buscar(@PathVariable Long cityId) {
-        City city = cityRepository.buscar(cityId);
+        Optional<City> city = cityRepository.findById(cityId);
 
-        if (city != null) {
-            return ResponseEntity.ok(city);
+        if (city.isPresent()) {
+            return ResponseEntity.ok(city.get());
         }
 
         return ResponseEntity.notFound().build();
@@ -57,7 +58,10 @@ public class CityController {
     public ResponseEntity<?> atualizar(@PathVariable Long cityId,
                                        @RequestBody City city) {
         try {
-            City cityAtual = cityRepository.buscar(cityId);
+            // Podemos usar o orElse(null) também, que retorna a instância de cidade
+            // dentro do Optional, ou null, caso ele esteja vazio,
+            // mas nesse caso, temos a responsabilidade de tomar cuidado com NullPointerException
+            City cityAtual = cityRepository.findById(cityId).orElse(null);
 
             if (cityAtual != null) {
                 BeanUtils.copyProperties(city, cityAtual, "id");

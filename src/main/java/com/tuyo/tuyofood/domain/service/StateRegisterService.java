@@ -18,12 +18,12 @@ public class StateRegisterService {
     private StateRepository stateRepository;
 
     public State salvar(State state) {
-        return stateRepository.salvar(state);
+        return stateRepository.save(state);
     }
 
     public void excluir(Long stateId) {
         try {
-            stateRepository.remover(stateId);
+            stateRepository.deleteById(stateId);
 
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(

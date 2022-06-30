@@ -25,12 +25,12 @@ public class StateController {
 
     @GetMapping
     public List<State> listar() {
-        return stateRepository.listar();
+        return stateRepository.findAll();
     }
 
     @GetMapping("/{stateId}")
     public ResponseEntity<State> buscar(@PathVariable Long stateId) {
-        State state = stateRepository.buscar(stateId);
+        State state = stateRepository.findById(stateId).orElse(null);
 
         if (state != null) {
             return ResponseEntity.ok(state);
@@ -48,7 +48,7 @@ public class StateController {
     @PutMapping("/{stateId}")
     public ResponseEntity<State> atualizar(@PathVariable Long stateId,
                                             @RequestBody State state) {
-        State stateAtual = stateRepository.buscar(stateId);
+        State stateAtual = stateRepository.findById(stateId).orElse(null);
 
         if (stateAtual != null) {
             BeanUtils.copyProperties(state, stateAtual, "id");

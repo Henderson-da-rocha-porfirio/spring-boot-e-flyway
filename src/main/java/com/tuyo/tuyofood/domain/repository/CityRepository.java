@@ -1,14 +1,10 @@
 package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.City;
-import com.tuyo.tuyofood.domain.entity.State;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface CityRepository extends JpaRepository<City, Long> {
 
-public interface CityRepository {
-
-    List<City> listar();
-    City buscar(Long id);
-    City salvar(City city);
-    void remover(Long id);
 }

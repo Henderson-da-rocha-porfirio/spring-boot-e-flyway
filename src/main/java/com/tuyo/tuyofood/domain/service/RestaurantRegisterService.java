@@ -29,6 +29,6 @@ public class RestaurantRegisterService {
 
         restaurant.setKitchen(kitchen);
 
-        return restaurantRepository.salvar(restaurant);
+        return restaurantRepository.save(restaurant);
     }
 }

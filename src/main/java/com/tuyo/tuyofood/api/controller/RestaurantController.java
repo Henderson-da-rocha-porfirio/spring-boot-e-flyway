@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /* ObjectMapper: converte objetos json em java e vice-versa */
 
@@ -30,15 +31,15 @@ public class RestaurantController {
 
     @GetMapping
     public List<Restaurant> listar() {
-        return restaurantRepository.listar();
+        return restaurantRepository.findAll();
     }
 
     @GetMapping("/{restaurantId}")
     public ResponseEntity<Restaurant> buscar(@PathVariable Long restaurantId) {
-        Restaurant restaurant = restaurantRepository.buscar(restaurantId);
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 
-        if (restaurant != null) {
-            return ResponseEntity.ok(restaurant);
+        if (restaurant.isPresent()) {
+            return ResponseEntity.ok(restaurant.get());
         }
 
         return ResponseEntity.notFound().build();
@@ -61,7 +62,7 @@ public class RestaurantController {
     public ResponseEntity<?> atualizar(@PathVariable Long restaurantId,
                                        @RequestBody Restaurant restaurant) {
         try {
-            Restaurant restaurantAtual = restaurantRepository.buscar(restaurantId);
+            Restaurant restaurantAtual = restaurantRepository.findById(restaurantId).orElse(null);
 
             if (restaurantAtual != null) {
                 BeanUtils.copyProperties(restaurant, restaurantAtual, "id");
@@ -81,7 +82,7 @@ public class RestaurantController {
     @PatchMapping("/{restaurantId}")
     public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantId,
                                               @RequestBody Map<String, Object> campos) {
-        Restaurant restaurantAtual = restaurantRepository.buscar(restaurantId);
+        Restaurant restaurantAtual = restaurantRepository.findById(restaurantId).orElse(null);
 
         if (restaurantAtual == null) {
             return ResponseEntity.notFound().build();
