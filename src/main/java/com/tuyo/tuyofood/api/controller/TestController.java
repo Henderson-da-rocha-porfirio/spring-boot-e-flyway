@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /* 1. @RequestParam: Busca o parâmetro da requisição.
     1.1: @RequestParam("nomeCozinha") = Usado se quiser modificar o nome do parâmetro mudado.
@@ -20,6 +21,16 @@ public class TestController {
 
     @Autowired
     private KitchenRepository kitchenRepository;
+
+    @GetMapping("/kitchens/por-nome")
+    public List<Kitchen> kitchensPorNome(String nome) {
+        return kitchenRepository.findTodasByNome(nome);
+    }
+
+    @GetMapping("/kitchens/unica-por-nome")
+    public Optional<Kitchen> kitchenPorNome(String nome) {
+        return kitchenRepository.findByNome(nome);
+    }
 
     /* Recebendo por Query String: */
  /*   @GetMapping("/kitchens/por-nome")
