@@ -22,10 +22,10 @@ public class TestController {
     private KitchenRepository kitchenRepository;
 
     /* Recebendo por Query String: */
-    @GetMapping("/kitchens/por-nome")
+ /*   @GetMapping("/kitchens/por-nome")
     public List<Kitchen> kitchensPorNome(@RequestParam("nome") String nome) {
         return kitchenRepository.consultarPorNome(nome);
-    }
+    }*/
 
     /*
 

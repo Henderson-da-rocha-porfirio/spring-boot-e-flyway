@@ -1,6 +1,5 @@
 package com.tuyo.tuyofood.api.controller;
 
-import com.tuyo.tuyofood.api.model.KitchensXmlWrapper;
 import com.tuyo.tuyofood.domain.entity.Kitchen;
 import com.tuyo.tuyofood.domain.exception.EntidadeEmUsoException;
 import com.tuyo.tuyofood.domain.exception.EntidadeNaoEncontradaException;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /* 1. @PostMapping: Mapeamento do método POST
  *  2. @RequestBody: Vinculação do corpo da requisição com o objeto em questão "Kitchen" (instanciar e fazer o Bind)
@@ -21,7 +21,11 @@ import java.util.List;
  *  4. @PathVariable: Faz o Bind
  *  5. BeanUtils.copyProperties: faz com que os valores das propriedades de Kitchen sejam passados para KitchenAtual. Isso economiza código sem precisar jogar get ou set
  *  6. KitchenController = é a controladora onde está sendo implementada a API
- *  7. KitchenController: agora o controlador tem acesso ao ResponseEntity e traduz EntidadeEmUsoException para um "CONFLICT"(409) HTTP. */
+ *  7. KitchenController: agora o controlador tem acesso ao ResponseEntity e traduz EntidadeEmUsoException para um "CONFLICT"(409) HTTP.
+ *  8. Optional<> = Significa que pode ter ou não ter uma cozinha. Ou seja, não retorna null. E evita NullPointException(verificar uma branch sobre ele em java spring avancado)
+ *  9. Sempre que usar o FindById é necessário usar o Optional<> para evitar o erro de NullPointException.
+ *  10. copyProperties(kitchen, kitchenAtual.get() = o ".get()" serve para copiar as propriedades de Kitchen pra dentro das propriedades de Kitchen que está dentro do Optional.
+ *  11. isPresent = Responde a pergunta: Tem alguma coisa aí dentro?  */
 
 @RestController
 @RequestMapping(value = "/kitchens")
@@ -36,23 +40,17 @@ public class KitchenController {
     /* Listando Coleções de Kitchen */
     @GetMapping
     public List<Kitchen> listar() {
-        return kitchenRepository.listar();
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    public KitchensXmlWrapper listarXml() {
-        return new KitchensXmlWrapper(kitchenRepository.listar());
+        return kitchenRepository.findAll();
     }
 
     @GetMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> buscar(@PathVariable Long kitchenId) {
-        Kitchen kitchen = kitchenRepository.buscar(kitchenId);
+        Optional<Kitchen> kitchen = kitchenRepository.findById(kitchenId);
 
-        if (kitchen != null) {
-            return ResponseEntity.ok(kitchen);
+        if (kitchen.isPresent()) {
+            return ResponseEntity.ok(kitchen.get());
         }
 
-//		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.notFound().build();
     }
 
@@ -65,13 +63,13 @@ public class KitchenController {
     @PutMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> atualizar(@PathVariable Long kitchenId,
                                              @RequestBody Kitchen kitchen) {
-        Kitchen kitchenAtual = kitchenRepository.buscar(kitchenId);
+        Optional<Kitchen> kitchenAtual = kitchenRepository.findById(kitchenId);
 
-        if (kitchenAtual != null) {
-            BeanUtils.copyProperties(kitchen, kitchenAtual, "id");
+        if (kitchenAtual.isPresent()) {
+            BeanUtils.copyProperties(kitchen, kitchenAtual.get(), "id");
 
-            kitchenAtual = kitchenRepository.salvar(kitchenAtual);
-            return ResponseEntity.ok(kitchenAtual);
+            Kitchen kitchenSalva = kitchenRegisterService.salvar(kitchenAtual.get());
+            return ResponseEntity.ok(kitchenSalva);
         }
 
         return ResponseEntity.notFound().build();

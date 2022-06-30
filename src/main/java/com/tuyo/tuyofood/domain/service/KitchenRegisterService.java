@@ -30,12 +30,12 @@ public class KitchenRegisterService {
     private KitchenRepository kitchenRepository;
 
     public Kitchen salvar(Kitchen kitchen) {
-        return kitchenRepository.salvar(kitchen);
+        return kitchenRepository.save(kitchen);
     }
 
     public void excluir(Long kitchenId) {
         try {
-            kitchenRepository.remover(kitchenId);
+            kitchenRepository.deleteById(kitchenId);
 
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
