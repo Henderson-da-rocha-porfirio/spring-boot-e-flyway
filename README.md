@@ -54,3 +54,6 @@
 ### read
 ### get
 ### stream
+
+## META-INF - externalizando meta-informações para xml
+### Criar o arquivo dentro dela: orm.xml
