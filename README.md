@@ -1,4 +1,4 @@
-# SPRING_DATA_JPA_Repository
+# SPRING_DATA_JPA_CONSULTAS_COM_@QUERY
 
 ## 1. JPA e Hibernate:
 ### — A. Uma Interface Repository ( Repositório Orientado a persistência ):

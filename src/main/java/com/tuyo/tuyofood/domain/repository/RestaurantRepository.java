@@ -12,7 +12,11 @@ import java.util.Optional;
 
 /* 1. nome: passado no parâmetro deve fazer o bind com %:nome%
 *  2. @Param("id"): faz o bind de kitchen passado no parâmetro com :id
-*  3. @Query: torna possível o uso do JPQL   */
+*  3. @Query: torna possível o uso do JPQL
+*  4. Consultas:
+*  a. @Query: usando JPQL
+*  b. Find: usando prefixos e flags
+*  c. Externas: META-INF/orm.xml   */
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
