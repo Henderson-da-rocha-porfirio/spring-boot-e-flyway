@@ -16,4 +16,6 @@ public interface KitchenRepository extends JpaRepository<Kitchen, Long> {
 
     Optional<Kitchen> findByNome(String nome);
 
+    boolean existsByNome(String nome);
+
 }

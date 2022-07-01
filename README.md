@@ -47,3 +47,10 @@
 
 ## Keywords Spring DAta JPA:
 ### Link: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+
+## Prefixos que tem a mesma funcionalidade:
+### find
+### query
+### read
+### get
+### stream
