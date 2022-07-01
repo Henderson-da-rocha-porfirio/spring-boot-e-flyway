@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 /* 1. nome: passado no parâmetro deve fazer o bind com %:nome%
-*  2. @Param("id"): faz o bind de kitchen passado no parâmetro com :id
-*  3. @Query: torna possível o uso do JPQL
-*  4. Consultas:
-*  a. @Query: usando JPQL
-*  b. Find: usando prefixos e flags
-*  c. Externas: META-INF/orm.xml   */
+ *  2. @Param("id"): faz o bind de kitchen passado no parâmetro com :id
+ *  3. @Query: torna possível o uso do JPQL
+ *  4. Consultas:
+ *  a. @Query: usando JPQL
+ *  b. Find: usando prefixos e flags
+ *  c. Externas: META-INF/orm.xml   */
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryQueries {
 
     List<Restaurant> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
-//    @Query("from Restaurant where nome like %:nome% and kitchen.id = :id")
+    //    @Query("from Restaurant where nome like %:nome% and kitchen.id = :id")
     List<Restaurant> consultarPorNome(String nome, @Param("id") Long kitchen);
 
 //    List<Restaurant> findByNomeContainingAndKitchenId(String nome, Long kitchen);

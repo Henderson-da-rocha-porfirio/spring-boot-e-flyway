@@ -17,6 +17,7 @@ import java.util.Optional;
     1.1: @RequestParam("nomeCozinha") = Usado se quiser modificar o nome do parâmetro mudado.
 *  2. @PathVariable: Busca pelo caminho e o parâmetro em "{ }"
    3. Containing: é uma flag que coloca o % e o Like antes e depois.
+   4. Endpoints: /kitchens/por-nome
    */
 
 @RestController
@@ -75,6 +76,12 @@ public class TestController {
     @GetMapping("/kitchens/exists")
     public boolean kitchenExists(String nome) {
         return kitchenRepository.existsByNome(nome);
+    }
+
+    @GetMapping("/restaurants/por-nome-e-frete")
+    public List<Restaurant> restaurantPorNomeFrete(String nome,
+                                                      BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+        return restaurantRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
     }
 
     /* Recebendo por Query String: */
