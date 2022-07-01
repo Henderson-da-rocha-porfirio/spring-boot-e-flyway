@@ -48,8 +48,14 @@ public class TestController {
     @GetMapping("/restaurants/por-nome")
     public List<Restaurant> restaurantsPorTaxaFrete(
             String nome, Long kitchenId) {
-        return restaurantRepository.findByNomeContainingAndKitchenId(nome, kitchenId);
+        return restaurantRepository.consultarPorNome(nome, kitchenId);
     }
+
+    /*@GetMapping("/restaurants/por-nome")
+    public List<Restaurant> restaurantsPorTaxaFrete(
+            String nome, Long kitchenId) {
+        return restaurantRepository.findByNomeContainingAndKitchenId(nome, kitchenId);
+    }*/
 
     @GetMapping("/restaurants/primeiro-por-nome")
     public Optional<Restaurant> restaurantPrimeiroPorNome(String nome) {

@@ -2,28 +2,26 @@ package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-/* 1. Todos estes prefixos, de métodos de consulta, funcionam do mesmo jeito do find:
-   ### find
-   ### query
-   ### read
-   ### get
-   ### stream
-   2. Outros prefixos como "count" e "exists":
-   ### Verificar se um registro exist (true e false) e count é usado para dar retorno númerico.
-   3. Flags são usadas entre o "find" e o "Id" para limitar o resultado da consulta:
-   ### First
-   ### Top2
-   */
+/* 1. nome: passado no parâmetro deve fazer o bind com %:nome%
+*  2. @Param("id"): faz o bind de kitchen passado no parâmetro com :id
+*  3. @Query: torna possível o uso do JPQL   */
+@Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     List<Restaurant> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
-    List<Restaurant> findByNomeContainingAndKitchenId(String nome, Long kitchen);
+    @Query("from Restaurant where nome like %:nome% and kitchen.id = :id")
+    List<Restaurant> consultarPorNome(String nome, @Param("id") Long kitchen);
+
+//    List<Restaurant> findByNomeContainingAndKitchenId(String nome, Long kitchen);
 
     Optional<Restaurant> findFirstRestaurantByNomeContaining(String nome);
 
