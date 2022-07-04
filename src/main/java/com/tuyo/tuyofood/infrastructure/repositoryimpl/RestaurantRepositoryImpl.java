@@ -1,6 +1,7 @@
 package com.tuyo.tuyofood.infrastructure.repositoryimpl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,10 +27,7 @@ import org.springframework.util.StringUtils;
  * de uma 'CriteriaQuery' de Restaurant.
  *  5. criteria.from: é o mesmo que // from Restaurant.
  *  6. O CriteriaBuilder possui vários métodos que criam expressões para os nossos critérios como:
- *  a. avg
- *  b. concat
- *  c. cont
- *  d. etc
+ *  a.avg b.concat c.cont d.etc
  *  7. getResultList: retorna uma lista de Restaurant
  *  8. where: dentro dele há varios Predicates(predicados), ou seja, imaginar isso como um filtro.
  *  9. Predicate(predicados): É uma instância.
@@ -46,7 +44,16 @@ import org.springframework.util.StringUtils;
  * e o segundo parâmetro "nome" recebido como parâmetro dentro do método "find". E é usado com
  * "%" + nome + "%" porque queremos o "like".
  *  14. greaterThanOrEqualTo: maior-que-ou-igual-a.
- *  15. lessThanOrEqualTo: menor-que-ou-igual-a. */
+ *  15. lessThanOrEqualTo: menor-que-ou-igual-a.
+ *  16. var predicates: cria uma lista de predicates dinâmica. E não precisa especificar predicado por
+ * predicado.
+ *  17. toArray(new Predicate[0]:
+ * a. Convertendo uma arrayList em array
+ * b. Passando um array vazio.
+ * c. Dessa forma ele já retorna uma instância de um array preenchido com todos os predicates que estão na lista.
+ *  18. var: pode substituir sem problemas o CriteriaBuilder e o TypedQuery.
+ */
+
 
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
@@ -57,10 +64,43 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
     @Override
     public List<Restaurant> find(String nome,
                                  BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        var builder = manager.getCriteriaBuilder();
 
-        // Consulta exemplo com método from e where:
-        CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
+        // Consulta Dinâmica com CriteriaAPI:
+        var criteria = builder.createQuery(Restaurant.class);
+        var root = criteria.from(Restaurant.class);
+
+        var predicates = new ArrayList<Predicate>();
+
+        if (StringUtils.hasText(nome)) {
+            predicates.add(builder.like(root.get("nome"), "%" + nome + "%"));
+        }
+
+        if (taxaFreteInicial != null) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial));
+        }
+
+        if (taxaFreteFinal != null) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal));
+        }
+
+        criteria.where(predicates.toArray(new Predicate[0]));
+
+        var query = manager.createQuery(criteria);
+        return query.getResultList();
+    }
+
+    // 1. Consulta simples exemplo com método from:
+
+        /* CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
+        criteria.from(Restaurant.class);
+
+         TypedQuery<Restaurant> query = manager.createQuery(criteria);
+        return query.getResultList();*/
+
+    // 2. Consulta exemplo com método from e where usando Root e Predicados:
+
+        /*CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
         Root<Restaurant> root = criteria.from(Restaurant.class);
 
         // Fazer o bind com três predicates(predicados): nomePredicate, taxaInicialPredicate e taxaFinalPredicate
@@ -75,12 +115,9 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
         // nomePredicate 'and' taxaInicialPredicate 'and' taxaFinalPredicate
         criteria.where(nomePredicate, taxaInicialPredicate, taxaFinalPredicate);
 
-        // Consulta simples exemplo com método from:
-        /* CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
-        criteria.from(Restaurant.class); */
-
         TypedQuery<Restaurant> query = manager.createQuery(criteria);
         return query.getResultList();
-    }
+
+        */
 
 }
