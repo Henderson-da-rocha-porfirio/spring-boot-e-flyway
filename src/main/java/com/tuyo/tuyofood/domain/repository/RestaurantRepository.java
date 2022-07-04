@@ -2,6 +2,7 @@ package com.tuyo.tuyofood.domain.repository;
 
 import com.tuyo.tuyofood.domain.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,8 @@ import java.util.Optional;
  *  b. Find: usando prefixos e flags
  *  c. Externas: META-INF/orm.xml   */
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryQueries {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryQueries,
+        JpaSpecificationExecutor<Restaurant> {
 
     List<Restaurant> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
