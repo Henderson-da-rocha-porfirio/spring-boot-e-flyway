@@ -24,6 +24,9 @@ import static com.tuyo.tuyofood.infrastructure.repository.spec.RestaurantSpecs.w
    3. Containing: é uma flag que coloca o % e o Like antes e depois.
    4. Endpoints: /kitchens/por-nome
    5. Spec: vem de Specification do DDD
+   6. Filtros no Spec: fica por parte de quem está usando os filtros, e não por parte do repositório em si,
+mas através dos métodos implementados. O problema disso é ficar dependente dos métodos por criar muita
+duplicidade de código.
    */
 
 @RestController
@@ -80,16 +83,22 @@ public class TestController {
 
     @GetMapping("/restaurants/por-nome-e-frete")
     public List<Restaurant> restaurantPorNomeFrete(String nome,
-                                                      BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+                                                   BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
         return restaurantRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
     }
 
+
     @GetMapping("/restaurants/with-frete-gratis")
+    public List<Restaurant> restaurantsComFreteGratis(String nome) {
+        return restaurantRepository.findWithFreteGratis(nome);
+    }
+
+    /* @GetMapping("/restaurants/with-frete-gratis")
     public List<Restaurant> restaurantsWithFreteGratis(String nome) {
 
         return restaurantRepository.findAll(withFreteGratis()
                 .and(withNomeSemelhante(nome)));
-    }
+    } */
 
     // Exemplo de Specification Sem o Builder:
    /* @GetMapping("/restaurants/with-frete-gratis")

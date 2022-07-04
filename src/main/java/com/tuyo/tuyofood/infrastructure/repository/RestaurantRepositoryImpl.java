@@ -9,9 +9,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Predicate;
 
 import com.tuyo.tuyofood.domain.entity.Restaurant;
+import com.tuyo.tuyofood.domain.repository.RestaurantRepository;
 import com.tuyo.tuyofood.domain.repository.RestaurantRepositoryQueries;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+
+import static com.tuyo.tuyofood.infrastructure.repository.spec.RestaurantSpecs.withFreteGratis;
+import static com.tuyo.tuyofood.infrastructure.repository.spec.RestaurantSpecs.withNomeSemelhante;
 
 /* 1. CriteriaQuery: é responsável por compor as cláusulas.
  * E ela possui todos os métodos de cláusulas do banco: from, where, group by e etc...
@@ -47,6 +53,11 @@ import org.springframework.util.StringUtils;
  * b. Passando um array vazio.
  * c. Dessa forma ele já retorna uma instância de um array preenchido com todos os predicates que estão na lista.
  *  18. var: pode substituir sem problemas o CriteriaBuilder e o TypedQuery.
+ *  19. @Lazy: informa ao Container do Spring que só instancie as dependências injetadas no momento que for preciso. Isso evita o erro
+ * de dependência circular.
+ * Dependência Circular: é quando a classe RestaurantRepositoryImpl, é instanciada pelo container do Spring, ela vê
+ * as dependências que precisa, e instancia as dependências. Só que como a dependência é RestaurantRepository, e esse vai instanciar o
+ * RestaurantRepositoryImpl, fica nessa dependência circular.
  */
 
 
@@ -55,6 +66,10 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
 
     @PersistenceContext
     private EntityManager manager;
+
+    @Autowired
+    @Lazy
+    private RestaurantRepository restaurantRepository;
 
     @Override
     public List<Restaurant> find(String nome,
@@ -83,6 +98,12 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
 
         var query = manager.createQuery(criteria);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Restaurant> findWithFreteGratis(String nome) {
+        return restaurantRepository.findAll(withFreteGratis()
+                .and(withNomeSemelhante(nome)));
     }
 
     // 1. Consulta simples exemplo com método from:
