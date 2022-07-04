@@ -49,6 +49,17 @@ public class TestController {
         return kitchenRepository.findByNome(nome);
     }
 
+
+    @GetMapping("/kitchens/exists")
+    public boolean kitchenExists(String nome) {
+        return kitchenRepository.existsByNome(nome);
+    }
+
+    @GetMapping("/kitchens/primeira")
+    public Optional<Kitchen> kitchenPrimeiro() {
+        return kitchenRepository.buscarPrimeiro();
+    }
+
     @GetMapping("/restaurants/por-taxa-frete")
     public List<Restaurant> restaurantsPorTaxaFrete(
             BigDecimal taxaInicial, BigDecimal taxaFinal) {
@@ -76,11 +87,6 @@ public class TestController {
         return restaurantRepository.countByKitchenId(kitchenId);
     }
 
-    @GetMapping("/kitchens/exists")
-    public boolean kitchenExists(String nome) {
-        return kitchenRepository.existsByNome(nome);
-    }
-
     @GetMapping("/restaurants/por-nome-e-frete")
     public List<Restaurant> restaurantPorNomeFrete(String nome,
                                                    BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
@@ -91,6 +97,11 @@ public class TestController {
     @GetMapping("/restaurants/with-frete-gratis")
     public List<Restaurant> restaurantsComFreteGratis(String nome) {
         return restaurantRepository.findWithFreteGratis(nome);
+    }
+
+    @GetMapping("/restaurants/primeiro")
+    public Optional<Restaurant> restaurantPrimeiro() {
+        return restaurantRepository.buscarPrimeiro();
     }
 
     /* @GetMapping("/restaurants/with-frete-gratis")

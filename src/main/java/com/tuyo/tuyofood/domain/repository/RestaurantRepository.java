@@ -18,9 +18,14 @@ import java.util.Optional;
  *  a. @Query: usando JPQL
  *  b. Find: usando prefixos e flags
  *  c. Externas: META-INF/orm.xml   */
+
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryQueries,
+public interface RestaurantRepository
+        extends CustomJpaRepository<Restaurant, Long>, RestaurantRepositoryQueries,
         JpaSpecificationExecutor<Restaurant> {
+/*@Repository
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryQueries,
+        JpaSpecificationExecutor<Restaurant> {*/
 
     List<Restaurant> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
