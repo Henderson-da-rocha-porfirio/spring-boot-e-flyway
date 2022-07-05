@@ -6,7 +6,8 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-/* Mudando o nome da coluna: @JoinColumn(name =  "kitchen_legacy") */
+/* 1. Mudando o nome da coluna: @JoinColumn(name =  "kitchen_legacy")
+*  2. Restaurant é o "dono" desse relacionamento "bidirecional". */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -23,6 +24,7 @@ public class Restaurant {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
+ // @JsonIgnore
     @ManyToOne
     @JoinColumn(name =  "kitchen_id", nullable = false)
     private Kitchen kitchen;
