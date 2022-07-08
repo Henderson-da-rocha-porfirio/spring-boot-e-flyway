@@ -1,5 +1,6 @@
 package com.tuyo.tuyofood.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,6 +37,7 @@ public class Restaurant {
     @JoinColumn(name =  "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "restaurant_payment_form",
             joinColumns = @JoinColumn(name = "restaurant_id"),
