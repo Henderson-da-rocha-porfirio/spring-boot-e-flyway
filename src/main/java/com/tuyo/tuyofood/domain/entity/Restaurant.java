@@ -18,7 +18,12 @@ import java.util.List;
 *  5. inverseJoinColumns: define o nome da coluna(id de Restaurant) que é inversa da
 * chave estrangeira(id de PaymentForm ).
 *  6. @Embedded: A entidade que incorpora a classe incorporavél(Embeddedable). Ou seja, ela mostra que a
-* propriedade address é do tipo Embeddedable que torna a classe Address parte dessa entidade. */
+* propriedade address é do tipo Embeddedable que torna a classe Address parte dessa entidade.
+*  7. @JsonIgnore: ignora a resposta em Json para testar no postman. Se quiser ver o teste completo do @Embedded
+* remover ou comentar o @JsonIgnore. Mas no DataBase continua do mesmo jeito.
+*  8. *IMPORTANTE*: Ambas propriedades: tanto address quanto paymentForms precisam ser adicionadas no parâmetro
+* do método atualizar de RestaurantController para que ao adicionarem novos dados,
+* não sejam deletados os antigos. */
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -41,6 +46,7 @@ public class Restaurant {
     @JoinColumn(name =  "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
+    @JsonIgnore
     @Embedded
     private Address address;
 

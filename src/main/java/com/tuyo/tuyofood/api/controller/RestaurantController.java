@@ -18,7 +18,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /* 1. ObjectMapper: converte objetos json em java e vice-versa
-*  2. paymentForms: é adicionado para que as outras formas não sejam deletadas sem necessidade. */
+*  2. paymentForms: é adicionado para que as outras formas não sejam deletadas sem necessidade.
+*  3. address: é adicionado para que os outros dados não sejam deletados sem necessidade. */
 
 @RestController
 @RequestMapping(value = "/restaurants")
@@ -66,7 +67,7 @@ public class RestaurantController {
             Restaurant restaurantAtual = restaurantRepository.findById(restaurantId).orElse(null);
 
             if (restaurantAtual != null) {
-                BeanUtils.copyProperties(restaurant, restaurantAtual, "id", "paymentForms");
+                BeanUtils.copyProperties(restaurant, restaurantAtual, "id", "paymentForms", "address");
 
                 restaurantAtual = restaurantRegisterService.salvar(restaurantAtual);
                 return ResponseEntity.ok(restaurantAtual);
