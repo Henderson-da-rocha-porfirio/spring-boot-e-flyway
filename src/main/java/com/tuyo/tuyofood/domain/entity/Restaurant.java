@@ -1,6 +1,7 @@
 package com.tuyo.tuyofood.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tuyo.tuyofood.domain.entity.embeddables.Address;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +16,10 @@ import java.util.List;
 *  4. joinColumns: define o nome da coluna(restaurant_id) que faz referência a própria classe que estamos
 * mapeando(id de Restaurant).
 *  5. inverseJoinColumns: define o nome da coluna(id de Restaurant) que é inversa da
-* chave estrangeira(id de PaymentForm ). */
+* chave estrangeira(id de PaymentForm ).
+*  6. @Embedded: A entidade que incorpora a classe incorporavél(Embeddedable). Ou seja, ela mostra que a
+* propriedade address é do tipo Embeddedable que torna a classe Address parte dessa entidade. */
+
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -36,6 +40,9 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name =  "kitchen_id", nullable = false)
     private Kitchen kitchen;
+
+    @Embedded
+    private Address address;
 
     @JsonIgnore
     @ManyToMany
