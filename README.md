@@ -1,2 +1,2 @@
-# JPA_E_HIBERNATE_TRABALHANDO_COM_DATAS
-## 
+# @CreationTimestamp
+## anotação do hibernate. Informa que a propriedade anotada, dataCadastro, deve ser atribuída com uma hora e data atual.
