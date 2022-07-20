@@ -39,7 +39,13 @@ import java.util.List;
 * mas as últimas data/hora.
 *  15. As ações acima poderiam ser feitas na classe service no sentido de ter a opção de quando usar uma ou outra
 * função.
-*  16. @CreationTimestamp:   */
+*  16. @CreationTimestamp: anotação do hibernate. Informa que a propriedade anotada, dataCadastro, deve ser atribuída
+* com uma hora e data atual.
+*  17. @UpdateTimestamp: anotação do hibernate. Informa que a hora e data atual deve ser atribuída a
+* propriedade dataAtualizacao sempre que a propriedade for atualizada.
+*  18. columnDefinition = "datetime(6)": mostra a precisão.
+*  18. columnDefinition = "datetime": ele não cria precisão de data com os milisegundos.
+* */
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -57,16 +63,28 @@ public class Restaurant {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
- // @JsonIgnore
-@ManyToOne
-    @JoinColumn(name =  "kitchen_id", nullable = false)
+    // @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
     @JsonIgnore
     @Embedded
     private Address address;
 
-    @JsonIgnore
+    //postgresql - comentando o @JsonIgnore, ele irá mostrar a dataCadastro e a dataAtualizacao
+    //@JsonIgnore
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private LocalDateTime dataCadastro;
+
+    //@JsonIgnore
+    @UpdateTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private LocalDateTime dataAtualizacao;
+
+    //mysql
+   /* @JsonIgnore
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataCadastro;
@@ -74,7 +92,7 @@ public class Restaurant {
     @JsonIgnore
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
-    private LocalDateTime dataAtualizacao;
+    private LocalDateTime dataAtualizacao;*/
 
     @JsonIgnore
     @ManyToMany

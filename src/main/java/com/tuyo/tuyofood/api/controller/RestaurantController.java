@@ -19,7 +19,10 @@ import java.util.Optional;
 
 /* 1. ObjectMapper: converte objetos json em java e vice-versa
 *  2. paymentForms: é adicionado para que as outras formas não sejam deletadas sem necessidade.
-*  3. address: é adicionado para que os outros dados não sejam deletados sem necessidade. */
+*  3. address: é adicionado para que os outros dados não sejam deletados sem necessidade.
+*  4. dataCadastro: também sofre o mesmo processo de address e paymentForms.
+*  5. O uso dos três acima como parâmetro, evita o erro:
+*  'ERROR: null value in column "data_cadastro" violates not-null constraint' */
 
 @RestController
 @RequestMapping(value = "/restaurants")
@@ -67,7 +70,8 @@ public class RestaurantController {
             Restaurant restaurantAtual = restaurantRepository.findById(restaurantId).orElse(null);
 
             if (restaurantAtual != null) {
-                BeanUtils.copyProperties(restaurant, restaurantAtual, "id", "paymentForms", "address");
+                BeanUtils.copyProperties(restaurant, restaurantAtual, "id", "paymentForms", "address",
+                        "dataCadastro");
 
                 restaurantAtual = restaurantRegisterService.salvar(restaurantAtual);
                 return ResponseEntity.ok(restaurantAtual);
