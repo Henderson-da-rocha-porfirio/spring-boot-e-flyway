@@ -1,2 +1,2 @@
-# timestamp
-## Usando na entidade.
+# ERROR: null value in column
+## Evitando o erro ou corrigindo o mesmo.
