@@ -1,2 +1,2 @@
-# ERROR: null value in column
-## Evitando o erro ou corrigindo o mesmo.
+# JPA_E_HIBERNATE_MUITOS_PARA_UM
+## 

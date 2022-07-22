@@ -63,7 +63,7 @@ public class Restaurant {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-    // @JsonIgnore
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
@@ -100,5 +100,9 @@ public class Restaurant {
             joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "payment_form_id"))
     private List<PaymentForm> paymentForms = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<Menu> menus = new ArrayList<>();
 
 }
