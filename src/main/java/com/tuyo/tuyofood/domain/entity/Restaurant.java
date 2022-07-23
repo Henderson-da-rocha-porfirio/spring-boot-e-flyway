@@ -45,8 +45,8 @@ import java.util.List;
 *  17. @UpdateTimestamp: anotação do hibernate. Informa que a hora e data atual deve ser atribuída a
 * propriedade dataAtualizacao sempre que a propriedade for atualizada.
 *  18. columnDefinition = "datetime(6)": mostra a precisão.
-*  18. columnDefinition = "datetime": ele não cria precisão de data com os milisegundos.
-* */
+*  19. columnDefinition = "datetime": ele não cria precisão de data com os milisegundos.
+*  20. @ManyToMany(fetch = FetchType.EAGER) = não precisa porque por padrão @ManyToMany já é EAGER. E isso pode gerar um problemão para a performance. */
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
