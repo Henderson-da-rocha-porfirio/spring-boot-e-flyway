@@ -28,9 +28,10 @@ import java.util.List;
 * do método atualizar de RestaurantController para que ao adicionarem novos dados,
 * não sejam deletados os antigos.
 *  9. LocalDateTime: Representa uma data/hora sem fuso-horário(timestamp) definido
-*  10. nullable = false: mostra que as propriedades são obrigatórias. E ainda as usamos porque ainda estamos
-* utilizando o "generate ddl" para gerar o banco de dados automaticamente. E isso também faz com que ele crie a
-* uma coluna "notNull".
+*  10. ### nullable = false: significa not null no database.
+*  Mostra que as propriedades são obrigatórias. E ainda as usamos porque ainda estamos utilizando o "generate ddl" para gerar o banco de dados automaticamente. E isso também faz com que ele crie a uma coluna "notNull".
+*  Ele põe por padrão um 'true' se não for especificado com 'false'.
+*  E independente se estiver com um Generate DDL ou não, é importante colocá-lo como 'false' para ele saber quando gerar um inner join, um left join e etc.
 *  11. Generate DDL: geração do banco de dados automaticamente. A configuração é feita no application.properties
 *  12. Datas: A lógica é a seguinte, quando salvar um restaurant, é preciso obter uma nova instância de
 * LocalDateTime que represente aquele exato momento(data/hora) que precisa ser atribuída.

@@ -1,5 +1,6 @@
 package com.tuyo.tuyofood.api.controller;
 
+import ch.qos.logback.core.joran.spi.ConsoleTarget;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tuyo.tuyofood.domain.entity.Restaurant;
 import com.tuyo.tuyofood.domain.exception.EntidadeNaoEncontradaException;
@@ -38,6 +39,23 @@ public class RestaurantController {
     public List<Restaurant> listar() {
         return restaurantRepository.findAll();
     }
+
+/*  Estratégia de Lazy Loading:
+
+    @GetMapping
+    public List<Restaurant> listar() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        //Formas de pagamento para o primeiro restaurant que está no índice 0 (id = 0)
+        System.out.println(restaurants.get(0).getNome());
+        restaurants.get(0).getPaymentForms().forEach(System.out::println);
+
+        //Formas de pagamento para o segundo restaurant que está no índice 1 (id = 1)
+        System.out.println(restaurants.get(1).getNome());
+        restaurants.get(1).getPaymentForms().forEach(System.out::println);
+
+        return restaurants;
+    }*/
 
     @GetMapping("/{restaurantId}")
     public ResponseEntity<Restaurant> buscar(@PathVariable Long restaurantId) {
