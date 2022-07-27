@@ -3,7 +3,7 @@
 ### 1. Toda vez que uma instância de Restaurant é carregada a partir do banco de dados, ele vai carregar as associações que usam Eager Loading, no caso da propriedade Kitchen que está com @ManyToOne dentro de Restaurant.
 ### 2. Está buscando 'ansiosasemente' uma Kitchen:
 ````
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
 ````
