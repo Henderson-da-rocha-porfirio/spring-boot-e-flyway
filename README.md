@@ -1,4 +1,9 @@
 # Spring Boot e Flyway
+### Versões envolvidas:
+| Software | Versão |
+| :--- | :---: |
+| `Java` | 11 |
+| `Spring` | 2.7.2 |
 ### Dependências:
 | Dependências |             utilidade             |
 |:-------------|:---------------------------------:|
