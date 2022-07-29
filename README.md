@@ -70,5 +70,3 @@ http://localhost:8080/usuario
 ````
 http://localhost:8080/usuario
 ````
-
-[Fonte Base](https://cwi.com.br/blog/versionar-sua-base-de-dados-com-spring-boot-e-flyway/)
