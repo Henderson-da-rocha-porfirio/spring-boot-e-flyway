@@ -12,5 +12,5 @@
 | `Flyway Migration`  |        Fará as migrations         |
 | `PostgreSQL Driver` |             Database              |
 | `Spring Data JPA`   |    Consulta e cadastro simples    |
-| `Swagger`           |    especificação aberta para definição de APIs REST    |
+| `Swagger`           |    Especificação aberta para definição de APIs REST    |
 
