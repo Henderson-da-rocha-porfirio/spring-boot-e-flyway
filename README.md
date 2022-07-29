@@ -1,4 +1,4 @@
-# Spring Boot e Flyway
+# Spring Boot e Swagger
 ### Versões envolvidas:
 | Software | Versão |
 | :--- | :---: |
