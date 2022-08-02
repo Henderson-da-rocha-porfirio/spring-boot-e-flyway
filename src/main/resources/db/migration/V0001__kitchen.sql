@@ -1,0 +1,4 @@
+CREATE TABLE kitchen (
+id SERIAL PRIMARY KEY,
+nome VARCHAR(60) NOT NULL
+)
