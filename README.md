@@ -3,12 +3,12 @@
 ### 1. Aplicação Sem Pool de Conexões:
 ### - Ela não mantém um conjunto de conexões com o Database, apenas faz uma única conexão por vez, e com isso não tem nenhuma pronta para a reutilização com o Database.
 ### - Ela aumenta o tempo gasto na abertura e fechamento das conexões.
-````
+
 |   Requisição 1   |  Aplicação Web  |    Database    |
-| :---         |     :---:      |          ---: |
+| :---:         |     :---:      |          :---: |
 | HTTP    | realiza ações no database      | executa e encerra a conexão      |
 | Feita do Consumidor Para ---->   | Cria uma nova conexão com ---->     | Depois que realiza o que precisa ser feito, ela é encerrada    |
-````
+
 ### - A API atende as requisições e o database executa e encerra as conexões. Ou seja, depois da execução, ela não tem mais nenhuma conexão.
 ### - Sendo assim, a aplicação continua rodando mas não tem nenhuma conexão com o Database.
 
