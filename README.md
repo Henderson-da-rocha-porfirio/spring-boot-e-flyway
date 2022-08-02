@@ -55,3 +55,11 @@ pom.xml -> Btn Direito em: spring-boot-starter-parent -> Generate
 ````
 V001__primeira-migration.sql
 ````
+
+### 8. Erro: Validate failed: Migration checksum mismatch for migration version 002
+#### - Solução:
+#### - Sempre parar o projeto (localhost) para poder não dar este erro.
+#### - O erro se dá porque tentaram alterar o conteúdo ou o nome de um arquivo '.sql' que já havia sido criadopelo Flyway.
+#### - Apagar o que tem dentro do '.sql' que deu problema e salvar.
+#### - Criar uma nova versão com os dados corretos.
+#### - Apagar o arquivo '.sql' aqui no Intellij e também deletar a linha correspondente no flyway_schema_history que está no database que não altera 'nada' no database.
