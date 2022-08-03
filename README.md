@@ -44,6 +44,9 @@ pom.xml -> Btn Direito em: spring-boot-starter-parent -> Generate
             <artifactId>flyway-core</artifactId>
         </dependency>
 ````
+### - Adicione os Plugins:
+#### - Flyway Migration Creation
+#### - JPA Buddy
 
 ### 7. Tipos de nomeação de versão para o Flyway
 #### - V1, v2 e assim sucessivamente...
