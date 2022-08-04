@@ -60,14 +60,24 @@ V001__primeira-migration.sql
 ````
 
 ### 8. Erro: Validate failed: Migration checksum mismatch for migration version 002
-#### - Solução:
+#### 1 Solução:
 #### - Sempre parar o projeto (localhost) para poder não dar este erro.
 #### - O erro se dá porque tentaram alterar o conteúdo ou o nome de um arquivo '.sql' que já havia sido criadopelo Flyway.
 #### - Apagar o que tem dentro do '.sql' que deu problema e salvar.
 #### - Criar uma nova versão com os dados corretos e
 #### - Apagar o arquivo '.sql' aqui no Intellij e também deletar a linha correspondente no flyway_schema_history que está no database que não altera 'nada' no database.
-#### - Por linha de comando se desejar, tem que entrar na pasta do projeto pelo terminal e rodar: ./mvnw flyway:repair
-
+#### 2 Por linha de comando se desejar: 
+#### a. Criar em resources um arquivo flyway.properties com o conteúdo:
+````
+#MYSQL: flyway.url=jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
+flyway.url=jdbc:postgresql://localhost:5432/dbfood
+flyway.user= 'seu-usuario'
+flyway.password= 'sua-senha'
+````
+#### b. tem que entrar na pasta do projeto pelo terminal e rodar:
+````
+./mvnw flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
+````
 ### 9. Inserção de massa de dados sempre renovada para teste no Flyway
 #### - Atenção: não pode adicionar inserts em migrations
 #### - Isso é possível ao se criar um arquivo que será chamado num callback do Flyway
