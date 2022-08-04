@@ -63,7 +63,7 @@ public class TestController {
     @GetMapping("/restaurants/por-taxa-frete")
     public List<Restaurant> restaurantsPorTaxaFrete(
             BigDecimal taxaInicial, BigDecimal taxaFinal) {
-        return restaurantRepository.findByTaxaFreteBetween(taxaInicial, taxaFinal);
+        return restaurantRepository.queryByTaxaFreteBetween(taxaInicial, taxaFinal);
     }
 
     @GetMapping("/restaurants/por-nome")

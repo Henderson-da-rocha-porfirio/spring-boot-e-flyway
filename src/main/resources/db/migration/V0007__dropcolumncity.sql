@@ -1,0 +1,1 @@
+alter table city drop column nome_state;

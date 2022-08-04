@@ -1,0 +1,1 @@
+alter table city add column state_id bigint;

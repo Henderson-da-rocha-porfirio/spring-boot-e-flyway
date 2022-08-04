@@ -66,3 +66,16 @@ V001__primeira-migration.sql
 #### - Apagar o que tem dentro do '.sql' que deu problema e salvar.
 #### - Criar uma nova versão com os dados corretos e
 #### - Apagar o arquivo '.sql' aqui no Intellij e também deletar a linha correspondente no flyway_schema_history que está no database que não altera 'nada' no database.
+#### - Por linha de comando se desejar, tem que entrar na pasta do projeto pelo terminal e rodar: ./mvnw flyway:repair
+
+### 9. Inserção de massa de dados sempre renovada para teste no Flyway
+#### - Atenção: não pode adicionar inserts em migrations
+#### - Isso é possível ao se criar um arquivo que será chamado num callback do Flyway
+##### - afterMigrate.sql:
+````
+resources/db/massdata/afterMigrate.sql
+````
+#### - Adicionar na application.properties:
+````
+spring.flyway.locations=classpath:db/migration,classpath:db/massdata
+````
