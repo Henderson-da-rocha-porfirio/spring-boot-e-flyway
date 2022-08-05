@@ -1,4 +1,4 @@
-# FLYWAY_VERSIONADOR_DE_DATABASE
+# Pool de Conexoes
 ### *** Dica importante ***
 ````
 Sempre criar a tabela antes no PG Admin (ou outro que use) e verifique os acertos e erros. Ficando certo, copie
