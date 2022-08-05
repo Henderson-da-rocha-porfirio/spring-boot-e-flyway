@@ -43,6 +43,8 @@ Try it out -> Execute
 spring.mvc.pathmatch.matching-strategy = ANT_PATH_MATCHER
 ````
 
+### *** exemplo com postgresql ***
+
 ### Testando no Postman
 #### GET
 ````
