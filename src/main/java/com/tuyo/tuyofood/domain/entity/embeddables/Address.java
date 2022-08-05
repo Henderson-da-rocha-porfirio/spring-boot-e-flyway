@@ -9,10 +9,10 @@ import com.tuyo.tuyofood.domain.entity.City;
 import lombok.Data;
 
 /* 1. @Data: gera Getters, Setters, ToString, Equals and HashCode e etc...
-*  2. @Embeddable: É uma classe incormporável. Tem a capacidade de ser incorporada em uma entidade.
-* Ou seja, ela parte de uma entidade e não de uma outra entidade em si. E todas as propriedades dessa
-* classes são refletidas na entidade que a incorpora.
-*  3. Não Esquecer: Adicionar dados para teste no import.sql  */
+ *  2. @Embeddable: É uma classe incormporável. Tem a capacidade de ser incorporada em uma entidade.
+ * Ou seja, ela parte de uma entidade e não de uma outra entidade em si. E todas as propriedades dessa
+ * classes são refletidas na entidade que a incorpora.
+ *  3. Não Esquecer: Adicionar dados para teste no import.sql  */
 
 @Data
 @Embeddable

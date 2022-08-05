@@ -1,4 +1,9 @@
 # FLYWAY_VERSIONADOR_DE_DATABASE
+### *** Dica importante ***
+````
+Sempre criar a tabela antes no PG Admin (ou outro que use) e verifique os acertos e erros. Ficando certo, copie
+e cole no versionador do flyway. E delete a tabela antes de rodar no flyway.
+````
 ## Pool de Conexões - Conjunto de Requisições Para a Melhoria da Performance
 ### 1. Aplicação Sem Pool de Conexões:
 ### - Ela não mantém um conjunto de conexões com o Database, apenas faz uma única conexão por vez, e com isso não tem nenhuma pronta para a reutilização com o Database.
