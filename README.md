@@ -1,4 +1,4 @@
-# Flyway Repair
+# AfterMigrate SQL
 ### *** Dica importante ***
 ````
 Sempre criar a tabela antes no PG Admin (ou outro que use) e verifique os acertos e erros. Ficando certo, copie
