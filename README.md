@@ -1,4 +1,4 @@
-# Spring Boot e Flyway
+# Spring Boot e Flyway - Usuario project example
 
 ### *** exemplo com postgresql ***
 
