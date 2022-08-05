@@ -1,4 +1,5 @@
-# FLYWAY_VERSIONADOR_DE_DATABASE
+# Flyway Com Postgresql
+### *** Verificar as Versões em db/migration
 ### *** Dica importante ***
 ````
 Sempre criar a tabela antes no PG Admin (ou outro que use) e verifique os acertos e erros. Ficando certo, copie
