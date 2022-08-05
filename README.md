@@ -1,6 +1,7 @@
 # Spring Boot e Flyway
 
 ### *** exemplo com postgresql ***
+### *** Verificar branches para exemplos de uso ***
 
 ### Versões envolvidas:
 | Software | Versão |
